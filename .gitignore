@@ -1,0 +1,68 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Root temporary files
+~$*.pptx
+~$*.docx
+*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Java / Maven
+springboot/target/
+springboot/.idea/
+springboot/*.iml
+
+# Node / Vue
+vue3/node_modules/
+vue3/dist/
+vue3/.idea/
+vue3/*.iml
+
+# Embedded git directory in frontend project
+vue3/.git/
+.vue3-git-backup/
+
+# Local env / secrets
+vue3/.env.local
+vue3/.env.*.local
+springboot/src/main/resources/application-local.properties
+springboot/src/main/resources/application-secret.properties
+
+# Generated thesis scan artifacts
+_thesis_scan/
+_thesis_scan2/
+_thesis_scan.zip
+_thesis_scan2.zip
+
+# Large local office artifacts / backups
+*.tmp
+*.bak
+
+# Local project-only extras not for GitHub
+check_perf_results.py
+check_perf_results.txt
+inspect_perf_tables.py
+perf_tables_inspect.txt
+update_perf_results.py
+update_thesis_db.py
+operate_log.sql
+er_diagram.md
+er_diagram_thesis.png
+*.docx
+*.pdf
