@@ -350,8 +350,9 @@ import {
 import { useUserStore } from '@/store/user'
 import { decodeRouteFromQuery, encodeRouteForQuery, normalizeRoutePlaces } from '@/utils/guideRoute'
 
-const AMAP_KEY = '65451f379de90729c07afb7453fa76f8'
-const API_BASE = '/api'
+const AMAP_KEY = process.env.VUE_APP_AMAP_KEY || ''
+const AMAP_SECURITY_CODE = process.env.VUE_APP_AMAP_SECURITY_CODE || ''
+const API_BASE = process.env.VUE_APP_BASE_API || '/api'
 const MAX_PLACE_COUNT = 10
 const ROUTE_STATE_KEY = 'route-planning-state-v1'
 const route = useRoute()
@@ -426,12 +427,18 @@ const normalizedAccommodationMap = computed(() => {
 
 function loadAmapScript() {
   return new Promise((resolve, reject) => {
+    if (!AMAP_KEY) {
+      reject(new Error('Missing VUE_APP_AMAP_KEY'))
+      return
+    }
     if (window.AMap) {
       resolve()
       return
     }
 
-    window._AMapSecurityConfig = { securityJsCode: '802c48bd7f3c0c5bdf29f064a15724f5' }
+    if (AMAP_SECURITY_CODE) {
+      window._AMapSecurityConfig = { securityJsCode: AMAP_SECURITY_CODE }
+    }
     const script = document.createElement('script')
     script.src = `https://webapi.amap.com/maps?v=2.0&key=${AMAP_KEY}&plugin=AMap.PlaceSearch,AMap.Polyline,AMap.Driving,AMap.Walking`
     script.onload = resolve

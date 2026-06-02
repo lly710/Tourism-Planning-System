@@ -348,12 +348,16 @@ import ChinaRegionData from '@/assets/中国地区数据.json'
 const baseAPI = process.env.VUE_APP_BASE_API || '/api'
 
 // 高德地图API相关配置
-const AMAP_KEY = '65451f379de90729c07afb7453fa76f8'
-const AMAP_SECURITY_CODE = '802c48bd7f3c0c5bdf29f064a15724f5'
+const AMAP_KEY = process.env.VUE_APP_AMAP_KEY || ''
+const AMAP_SECURITY_CODE = process.env.VUE_APP_AMAP_SECURITY_CODE || ''
 
 // 加载高德地图API
 const loadAmapScript = () => {
   return new Promise((resolve, reject) => {
+    if (!AMAP_KEY) {
+      reject(new Error('Missing VUE_APP_AMAP_KEY'))
+      return
+    }
     if (window.AMap) {
       // 即使AMap已加载，也需要确保Geocoder插件加载
       if (!window.AMap.Geocoder) {
@@ -367,8 +371,10 @@ const loadAmapScript = () => {
     }
     
     // 设置高德安全密钥
-    window._AMapSecurityConfig = {
-      securityJsCode: AMAP_SECURITY_CODE
+    if (AMAP_SECURITY_CODE) {
+      window._AMapSecurityConfig = {
+        securityJsCode: AMAP_SECURITY_CODE
+      }
     }
     
     const script = document.createElement('script')
